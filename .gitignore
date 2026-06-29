@@ -5,6 +5,11 @@ refrances/
 Logo/
 Main_Tabs.txt
 
+# Claude Design source export (kept locally, not deployed) — site lives in index.html + assets/
+KSquare landing page design/
+KSquare landing page design.zip
+K Square Landing.html
+
 # OS / editor cruft
 .DS_Store
 Thumbs.db
