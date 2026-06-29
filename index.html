@@ -320,17 +320,19 @@
         <div class="row"><span class="lbl">Studio</span><span>46 Al Narges Buildings, New Cairo, Egypt</span></div>
       </div>
       <div class="social">
-        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14v-1.5c0-.6.4-.5 0 0z"/></svg></a>
-        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
-        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5h-3V20h3V8.5zM5 4a1.8 1.8 0 100 3.6A1.8 1.8 0 005 4zm6 4.5h-2.9V20H11v-6c0-1.6 2.6-1.8 2.6 0v6h2.9v-6.6c0-4.3-4.4-4.1-5.5-2V8.5z"/></svg></a>
+        <a href="https://www.instagram.com/k.square_architects" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
       </div>
     </div>
     <div class="reveal">
-      <form id="contactForm">
-        <div class="field"><input type="text" id="cName" required /><label for="cName">Your Name</label></div>
-        <div class="field"><input type="email" id="cEmail" required /><label for="cEmail">Email Address</label></div>
-        <div class="field"><input type="tel" id="cPhone" /><label for="cPhone">Phone Number</label></div>
-        <div class="field"><textarea id="cMsg" rows="4" required></textarea><label for="cMsg">Tell Us About Your Project</label></div>
+      <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="0dc3aa66-9069-4132-8484-29e37de6710c" />
+        <input type="hidden" name="subject" value="New Project Enquiry — K Square Architects" />
+        <input type="hidden" name="from_name" value="K Square Architects Website" />
+        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
+        <div class="field"><input type="text" id="cName" name="name" required /><label for="cName">Your Name</label></div>
+        <div class="field"><input type="email" id="cEmail" name="email" required /><label for="cEmail">Email Address</label></div>
+        <div class="field"><input type="tel" id="cPhone" name="phone" /><label for="cPhone">Phone Number</label></div>
+        <div class="field"><textarea id="cMsg" name="message" rows="4" required></textarea><label for="cMsg">Tell Us About Your Project</label></div>
         <button type="submit" class="btn ghost" style="margin-top:8px">Send Message <span class="arr">→</span></button>
         <div class="form-note" id="formNote"></div>
       </form>
@@ -369,17 +371,30 @@
   // year
   document.getElementById('year').textContent=new Date().getFullYear();
 
-  // contact form -> opens mail client, no backend
-  document.getElementById('contactForm').addEventListener('submit',e=>{
+  // contact form -> submits to Web3Forms (delivers to info@ksquare-architects.com)
+  document.getElementById('contactForm').addEventListener('submit',async e=>{
     e.preventDefault();
-    const n=cName.value.trim(),em=cEmail.value.trim(),ph=cPhone.value.trim(),m=cMsg.value.trim();
+    const form=e.target, btn=form.querySelector('button[type="submit"]');
     const note=document.getElementById('formNote');
+    const n=cName.value.trim(),em=cEmail.value.trim(),m=cMsg.value.trim();
     if(!n||!em||!m){note.textContent='Please complete the required fields.';note.classList.remove('ok');return;}
-    const body=encodeURIComponent(`Name: ${n}\nEmail: ${em}\nPhone: ${ph}\n\n${m}`);
-    window.location.href=`mailto:info@ksquare-architects.com?subject=${encodeURIComponent('New Project Enquiry — '+n)}&body=${body}`;
-    note.textContent='Thank you, '+n.split(' ')[0]+'. Your message is ready to send in your email app.';
-    note.classList.add('ok');
-    e.target.reset();
+    const original=btn.innerHTML; btn.disabled=true; btn.innerHTML='Sending…';
+    note.classList.remove('ok'); note.textContent='';
+    try{
+      const res=await fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)});
+      const data=await res.json();
+      if(res.ok && data.success){
+        note.textContent='Thank you, '+n.split(' ')[0]+'. Your message has been sent — we’ll be in touch shortly.';
+        note.classList.add('ok');
+        form.reset();
+      }else{
+        note.textContent=(data&&data.message)?data.message:'Something went wrong. Please email us directly at info@ksquare-architects.com.';
+      }
+    }catch(err){
+      note.textContent='Network error. Please email us directly at info@ksquare-architects.com.';
+    }finally{
+      btn.disabled=false; btn.innerHTML=original;
+    }
   });
 </script>
 </body>
