@@ -2,12 +2,12 @@
 
 This site is a static, single-page website (`index.html` + `assets/`). It deploys to
 **GitHub Pages** automatically via GitHub Actions, and is served at the custom domain
-**`k-squarearchitects.com`**.
+**`ksquare-architects.com`**.
 
 Everything in the repo is already prepared:
 
 - `.github/workflows/deploy.yml` — the Actions workflow that builds and deploys on every push to `main`.
-- `CNAME` — tells GitHub Pages to serve the site at `k-squarearchitects.com`.
+- `CNAME` — tells GitHub Pages to serve the site at `ksquare-architects.com`.
 - `.gitignore` — keeps local-only files (the screen recording, `Logo/`, `refrances/`, `Main_Tabs.txt`) out of the published repo.
 
 ---
@@ -48,10 +48,10 @@ gh repo create <your-repo> --public --source=. --remote=origin --push
 
 ## Step 4 — Point your domain's DNS at GitHub
 
-You own **`k-squarearchitects.com`**. Log in to your domain registrar's DNS settings and add
+You own **`ksquare-architects.com`**. Log in to your domain registrar's DNS settings and add
 the records below. This sets up the **apex** domain plus the **www** alias.
 
-### Apex domain (`k-squarearchitects.com`) — A and AAAA records
+### Apex domain (`ksquare-architects.com`) — A and AAAA records
 
 Create four **A** records (host `@`) pointing to GitHub's Pages IPs:
 
@@ -71,19 +71,20 @@ Create four **A** records (host `@`) pointing to GitHub's Pages IPs:
 | AAAA | @    | 2606:50c0:8002::153    |
 | AAAA | @    | 2606:50c0:8003::153    |
 
-### www alias (`www.k-squarearchitects.com`) — CNAME record
+### www alias (`www.ksquare-architects.com`) — CNAME record
 
-| Type  | Host | Value                      |
-|-------|------|----------------------------|
-| CNAME | www  | `<your-username>.github.io` |
+| Type  | Host | Value                          |
+|-------|------|--------------------------------|
+| CNAME | www  | `usopenmarket-a11y.github.io`  |
 
-> Note the trailing `.github.io` — point to your user/org GitHub Pages host, **not** the repo URL.
+> This is the GitHub Pages **host** (`<username>.github.io`) — **not** a full URL.
+> No `https://`, no `github.com`, no repo path.
 
 DNS changes can take anywhere from a few minutes to 24–48 hours to propagate.
 
 ## Step 5 — Set the custom domain in GitHub Pages
 
-1. Back in **Settings → Pages → Custom domain**, confirm it shows `k-squarearchitects.com`
+1. Back in **Settings → Pages → Custom domain**, confirm it shows `ksquare-architects.com`
    (the `CNAME` file in the repo sets this automatically; if it's blank, type it and click **Save**).
 2. GitHub runs a DNS check. Once it passes (✓), tick **Enforce HTTPS**.
    - The certificate can take up to ~24 hours to issue after DNS resolves. If "Enforce HTTPS"
@@ -91,8 +92,8 @@ DNS changes can take anywhere from a few minutes to 24–48 hours to propagate.
 
 ## Step 6 — Verify
 
-- Visit `https://k-squarearchitects.com` — the site should load over HTTPS.
-- Visit `https://www.k-squarearchitects.com` — it should redirect to the apex domain.
+- Visit `https://ksquare-architects.com` — the site should load over HTTPS.
+- Visit `https://www.ksquare-architects.com` — it should redirect to the apex domain.
 - Hard-refresh (Ctrl/Cmd + Shift + R) if you see a stale page.
 
 ---
