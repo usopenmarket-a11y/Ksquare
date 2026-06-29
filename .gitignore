@@ -1,0 +1,12 @@
+# Local-only working files — not part of the deployed site
+Recording*.mp4
+*.mp4
+refrances/
+Logo/
+Main_Tabs.txt
+
+# OS / editor cruft
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

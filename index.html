@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>K Square Architects — Architecture, Interior Design, Fit-out & 3D Visualization</title>
+<meta name="description" content="K Square Architects transforms ideas into meaningful spaces through architecture, interior design, fit-out, and 3D visualization." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#0d0b09;
+    --panel:#16120e;
+    --panel-2:#1e1814;
+    --cream:#ece5d8;
+    --cream-2:#e3dac9;
+    --paper:#f3eee4;
+    --text-dark:#ece5d8;
+    --muted:#a99e8c;
+    --muted-2:#8c8273;
+    --accent:#bd9d6a;
+    --accent-soft:#c9ad7e;
+    --line:rgba(189,157,106,.28);
+    --line-dark:rgba(40,32,24,.14);
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);
+    background:var(--ink);
+    color:var(--text-dark);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spacing:.01em}
+  img{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+  .eyebrow{
+    font-size:12px;letter-spacing:.42em;text-transform:uppercase;
+    color:var(--accent);font-weight:400;display:inline-block;
+  }
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.2,.7,.2,1),transform 1s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;transition:background .5s ease,padding .5s ease,backdrop-filter .5s;
+  }
+  header.scrolled{
+    background:rgba(13,11,9,.82);backdrop-filter:blur(14px);
+    padding:14px 40px;border-bottom:1px solid rgba(189,157,106,.14);
+  }
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand img{height:46px;width:auto;transition:height .4s ease}
+  header.scrolled .brand img{height:38px}
+  .brand-name{font-family:var(--serif);font-size:19px;letter-spacing:.32em;text-transform:uppercase;color:var(--cream)}
+  nav.main{display:flex;align-items:center;gap:38px}
+  nav.main a{font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:color .3s;position:relative}
+  nav.main a::after{content:"";position:absolute;left:0;bottom:-7px;width:0;height:1px;background:var(--accent);transition:width .35s}
+  nav.main a:hover{color:var(--cream)}
+  nav.main a:hover::after{width:100%}
+  .nav-cta{border:1px solid var(--line);padding:11px 22px;color:var(--cream)!important;letter-spacing:.2em}
+  .nav-cta:hover{background:var(--accent);border-color:var(--accent);color:var(--ink)!important}
+  .nav-cta::after{display:none}
+  .burger{display:none;flex-direction:column;gap:6px;cursor:pointer;background:none;border:0;padding:6px}
+  .burger span{width:26px;height:1.5px;background:var(--cream);transition:.3s}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;
+    background:linear-gradient(90deg,rgba(13,11,9,.86) 0%,rgba(13,11,9,.55) 45%,rgba(13,11,9,.25) 100%),url('assets/hero.jpg');
+    background-size:cover;background-position:center right;
+  }
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,var(--ink),transparent 32%)}
+  .hero-inner{position:relative;z-index:2;padding-top:90px}
+  .hero h1{font-size:clamp(46px,7vw,104px);font-weight:300;color:var(--cream);letter-spacing:-.01em}
+  .hero h1 em{font-style:italic;color:var(--accent-soft)}
+  .hero .sub{margin-top:30px;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .hero .sub span{color:var(--accent)}
+  .btn{
+    display:inline-flex;align-items:center;gap:14px;margin-top:46px;
+    background:var(--accent);color:var(--ink);padding:17px 34px;
+    font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;
+    border:1px solid var(--accent);transition:.35s;cursor:pointer;
+  }
+  .btn:hover{background:transparent;color:var(--accent-soft)}
+  .btn.ghost{background:transparent;color:var(--cream);border-color:var(--line)}
+  .btn.ghost:hover{background:var(--accent);color:var(--ink);border-color:var(--accent)}
+  .btn .arr{transition:transform .35s}
+  .btn:hover .arr{transform:translateX(6px)}
+  .scroll-hint{position:absolute;bottom:34px;left:40px;z-index:2;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted-2);display:flex;align-items:center;gap:12px}
+  .scroll-hint::before{content:"";width:46px;height:1px;background:var(--accent)}
+
+  /* ---------- ABOUT ---------- */
+  .about{background:var(--paper);color:#241d16}
+  .about .wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;padding-top:120px;padding-bottom:120px}
+  .about-figure{position:relative;aspect-ratio:4/5;overflow:hidden}
+  .about-figure img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s ease}
+  .about-figure:hover img{transform:scale(1.05)}
+  .about-figure .frame{position:absolute;inset:18px;border:1px solid rgba(255,255,255,.35);pointer-events:none}
+  .about h2{font-size:clamp(38px,4.6vw,62px);margin:18px 0 30px;color:#1c160f}
+  .about p{color:#5c5346;font-size:16.5px;margin-bottom:20px;max-width:46ch;font-weight:300}
+  .about .rule{width:56px;height:1px;background:var(--accent);margin:34px 0 0}
+
+  /* ---------- SERVICES ---------- */
+  .services{background:var(--panel);position:relative;padding:130px 0}
+  .services .head{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:70px}
+  .services h2{font-size:clamp(38px,4.8vw,64px);color:var(--cream);font-weight:300}
+  .services .head p{color:var(--muted);max-width:42ch;font-weight:300}
+  .grid-services{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .svc{background:var(--panel);padding:46px 34px 52px;transition:background .45s ease,transform .45s ease;position:relative}
+  .svc:hover{background:var(--panel-2);transform:translateY(-6px)}
+  .svc .num{font-family:var(--serif);font-size:15px;color:var(--accent);letter-spacing:.1em}
+  .svc h3{font-size:23px;letter-spacing:.16em;text-transform:uppercase;margin:26px 0 18px;color:var(--cream);font-family:var(--sans);font-weight:400;font-size:15px}
+  .svc p{color:var(--muted);font-size:15px;font-weight:300}
+  .svc .mark{margin-top:30px;width:34px;height:1px;background:var(--line);transition:width .45s,background .45s}
+  .svc:hover .mark{width:60px;background:var(--accent)}
+
+  /* ---------- PROCESS ---------- */
+  .process{background:var(--ink);padding:130px 0}
+  .process .wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:80px;align-items:center}
+  .process-figure{aspect-ratio:3/4;overflow:hidden;position:relative}
+  .process-figure img{width:100%;height:100%;object-fit:cover}
+  .process h2{font-size:clamp(36px,4.4vw,58px);color:var(--cream);font-weight:300;margin:16px 0 14px}
+  .process h2 em{font-style:italic;color:var(--accent-soft)}
+  .steps{margin-top:48px;border-top:1px solid var(--line-dark)}
+  .step{display:grid;grid-template-columns:64px 1fr;gap:26px;padding:28px 0;border-bottom:1px solid rgba(189,157,106,.14)}
+  .step .n{font-family:var(--serif);font-size:30px;color:var(--accent)}
+  .step h3{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream);font-family:var(--sans);font-weight:500;margin-bottom:8px}
+  .step p{color:var(--muted);font-size:15px;font-weight:300;max-width:52ch}
+
+  /* ---------- CONTACT ---------- */
+  .contact{
+    position:relative;padding:130px 0;
+    background:linear-gradient(90deg,rgba(13,11,9,.94) 0%,rgba(13,11,9,.8) 50%,rgba(13,11,9,.55) 100%),url('assets/contact.jpg');
+    background-size:cover;background-position:center;
+  }
+  .contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:80px;position:relative;z-index:2}
+  .contact h2{font-size:clamp(40px,5vw,72px);color:var(--cream);font-weight:300;line-height:1.02;margin:18px 0 30px}
+  .contact .lead{color:var(--muted);font-weight:300;max-width:40ch;margin-bottom:46px}
+  .info{display:flex;flex-direction:column;gap:22px}
+  .info .row{display:flex;gap:18px;align-items:center;color:var(--cream)}
+  .info .row .lbl{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--accent);width:90px;flex:none}
+  .info .row a,.info .row span{font-size:16px;color:var(--cream);font-weight:300}
+  .social{display:flex;gap:16px;margin-top:42px}
+  .social a{width:44px;height:44px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;transition:.35s;color:var(--muted)}
+  .social a:hover{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+  .social svg{width:17px;height:17px}
+  form{display:flex;flex-direction:column;gap:0}
+  .field{position:relative;border-bottom:1px solid var(--line);margin-bottom:30px}
+  .field input,.field textarea{
+    width:100%;background:transparent;border:0;color:var(--cream);
+    font-family:var(--sans);font-size:15px;padding:14px 0 12px;outline:none;font-weight:300;resize:none;
+  }
+  .field label{position:absolute;left:0;top:14px;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);pointer-events:none;transition:.3s}
+  .field input:focus+label,.field input:valid+label,
+  .field textarea:focus+label,.field textarea:valid+label{top:-12px;font-size:10px;color:var(--accent)}
+  .field input:focus,.field textarea:focus{}
+  .form-note{font-size:12.5px;color:var(--muted-2);margin-top:6px;min-height:18px;letter-spacing:.04em}
+  .form-note.ok{color:var(--accent-soft)}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--panel);padding:60px 0 36px;border-top:1px solid rgba(189,157,106,.14)}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+  footer img{height:54px;opacity:.9}
+  footer .cols{display:flex;gap:34px}
+  footer .cols a{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:color .3s}
+  footer .cols a:hover{color:var(--accent)}
+  .copy{width:100%;text-align:center;margin-top:40px;padding-top:26px;border-top:1px solid rgba(189,157,106,.1);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2)}
+
+  /* ---------- MOBILE ---------- */
+  @media(max-width:900px){
+    .wrap{padding:0 24px}
+    header,header.scrolled{padding:16px 24px}
+    .burger{display:flex}
+    nav.main{
+      position:fixed;inset:0;background:rgba(13,11,9,.97);backdrop-filter:blur(10px);
+      flex-direction:column;justify-content:center;gap:32px;transform:translateX(100%);transition:transform .45s ease;
+    }
+    nav.main.open{transform:none}
+    nav.main a{font-size:16px}
+    .about .wrap,.process .wrap,.contact .wrap,.services .head{grid-template-columns:1fr;gap:44px}
+    .about .wrap{padding-top:90px;padding-bottom:90px}
+    .grid-services{grid-template-columns:1fr 1fr}
+    .process-figure{aspect-ratio:16/11}
+    .about-figure{aspect-ratio:16/12}
+    .scroll-hint{display:none}
+    .hero{background-position:center}
+  }
+  @media(max-width:540px){
+    .grid-services{grid-template-columns:1fr}
+    .brand-name{display:none}
+    .hero .sub{font-size:11px;letter-spacing:.18em}
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a class="brand" href="#home">
+    <img src="assets/logo-light.png" alt="K Square Architects" />
+    <span class="brand-name">K Square</span>
+  </a>
+  <nav class="main" id="nav">
+    <a href="#home" data-link>Home</a>
+    <a href="#about" data-link>About</a>
+    <a href="#services" data-link>Services</a>
+    <a href="#process" data-link>Process</a>
+    <a href="#contact" data-link>Contact</a>
+    <a href="#contact" class="nav-cta" data-link>Start a Project</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="wrap hero-inner">
+    <span class="eyebrow reveal">K Square Architects</span>
+    <h1 class="reveal" style="margin-top:24px">Your journey<br>is ours,<br><em>created by the 2 Ks.</em></h1>
+    <div class="sub reveal">Architecture <span>•</span> Interior Design <span>•</span> Fit-out <span>•</span> 3D Visualization</div>
+    <a href="#contact" class="btn reveal" data-link>Start Your Project <span class="arr">→</span></a>
+  </div>
+  <div class="scroll-hint">Scroll to explore</div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="about-figure reveal">
+      <img src="assets/about.jpg" alt="K Square architectural interior" />
+      <span class="frame"></span>
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">About Us</span>
+      <h2>Every space has<br>the power to shape<br>how you live.</h2>
+      <p>At K Square Architects, we believe every space has the power to shape the way you live, work, and feel.</p>
+      <p>We are a team of passionate architects and designers specializing in interior design, architectural design, and fit-out solutions. We transform ideas into meaningful spaces through creativity, collaboration, technical expertise, and attention to detail.</p>
+      <p>Our approach is simple: we understand your vision, challenge the ordinary, and deliver exceptional spaces that are not only beautifully designed, but also carefully executed.</p>
+      <div class="rule"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="wrap">
+    <div class="head">
+      <div class="reveal">
+        <span class="eyebrow">Services</span>
+        <h2 style="margin-top:18px">We offer comprehensive solutions tailored to your needs.</h2>
+      </div>
+      <p class="reveal">From the first sketch to the final detail, our integrated services cover every stage of bringing a space to life.</p>
+    </div>
+    <div class="grid-services">
+      <div class="svc reveal">
+        <span class="num">01</span>
+        <h3>Architecture</h3>
+        <p>Creating functional and innovative architectural solutions that stand the test of time.</p>
+        <div class="mark"></div>
+      </div>
+      <div class="svc reveal">
+        <span class="num">02</span>
+        <h3>Interior Design</h3>
+        <p>Designing interiors that reflect your personality while enhancing comfort and lifestyle.</p>
+        <div class="mark"></div>
+      </div>
+      <div class="svc reveal">
+        <span class="num">03</span>
+        <h3>Fit-out</h3>
+        <p>End-to-end fit-out solutions with attention to detail, quality, and craftsmanship.</p>
+        <div class="mark"></div>
+      </div>
+      <div class="svc reveal">
+        <span class="num">04</span>
+        <h3>3D Visualization</h3>
+        <p>Bringing ideas to life with realistic 3D visuals that communicate every detail.</p>
+        <div class="mark"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="wrap">
+    <div class="process-figure reveal">
+      <img src="assets/process.jpg" alt="Sculptural staircase" />
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">Our Process</span>
+      <h2>From <em>Concept</em><br>to Reality.</h2>
+      <p style="color:var(--muted);font-weight:300;max-width:46ch">A considered, collaborative method that turns ambition into spaces built with precision.</p>
+      <div class="steps">
+        <div class="step"><span class="n">01</span><div><h3>Discover</h3><p>We listen, study your vision, and define the brief, site, and ambitions together.</p></div></div>
+        <div class="step"><span class="n">02</span><div><h3>Design</h3><p>Concepts evolve into refined drawings and 3D visuals that challenge the ordinary.</p></div></div>
+        <div class="step"><span class="n">03</span><div><h3>Develop</h3><p>Technical detailing, materials, and documentation prepare every element for build.</p></div></div>
+        <div class="step"><span class="n">04</span><div><h3>Deliver</h3><p>End-to-end fit-out and execution bring the design to life with craftsmanship.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="eyebrow">Contact Us</span>
+      <h2>Let's create<br>something<br>extraordinary.</h2>
+      <p class="lead">We'd love to hear about your project. Get in touch with us and let's start your journey together.</p>
+      <div class="info">
+        <div class="row"><span class="lbl">Phone</span><a href="tel:+201001234567">+20 100 123 4567</a></div>
+        <div class="row"><span class="lbl">Email</span><a href="mailto:info@ksquare-architects.com">info@ksquare-architects.com</a></div>
+        <div class="row"><span class="lbl">Studio</span><span>46 Al Narges Buildings, New Cairo, Egypt</span></div>
+      </div>
+      <div class="social">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h2.5l.5-3H14v-1.5c0-.6.4-.5 0 0z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="3.6"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.5 8.5h-3V20h3V8.5zM5 4a1.8 1.8 0 100 3.6A1.8 1.8 0 005 4zm6 4.5h-2.9V20H11v-6c0-1.6 2.6-1.8 2.6 0v6h2.9v-6.6c0-4.3-4.4-4.1-5.5-2V8.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form id="contactForm">
+        <div class="field"><input type="text" id="cName" required /><label for="cName">Your Name</label></div>
+        <div class="field"><input type="email" id="cEmail" required /><label for="cEmail">Email Address</label></div>
+        <div class="field"><input type="tel" id="cPhone" /><label for="cPhone">Phone Number</label></div>
+        <div class="field"><textarea id="cMsg" rows="4" required></textarea><label for="cMsg">Tell Us About Your Project</label></div>
+        <button type="submit" class="btn ghost" style="margin-top:8px">Send Message <span class="arr">→</span></button>
+        <div class="form-note" id="formNote"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/logo-light.png" alt="K Square Architects" />
+    <div class="cols">
+      <a href="#about" data-link>About</a>
+      <a href="#services" data-link>Services</a>
+      <a href="#process" data-link>Process</a>
+      <a href="#contact" data-link>Contact</a>
+    </div>
+    <div class="copy">© <span id="year"></span> K Square Architects — Architecture • Interior Design • Fit-out • 3D Visualization</div>
+  </div>
+</footer>
+
+<script>
+  // header scroll state
+  const header=document.getElementById('header');
+  addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>40));
+
+  // mobile menu
+  const burger=document.getElementById('burger'),nav=document.getElementById('nav');
+  burger.addEventListener('click',()=>{nav.classList.toggle('open');
+    burger.style.opacity=nav.classList.contains('open')?'.6':'1';});
+  document.querySelectorAll('[data-link]').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+  // scroll reveal
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.16});
+  document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(i%4*70)+'ms';io.observe(el);});
+
+  // year
+  document.getElementById('year').textContent=new Date().getFullYear();
+
+  // contact form -> opens mail client, no backend
+  document.getElementById('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const n=cName.value.trim(),em=cEmail.value.trim(),ph=cPhone.value.trim(),m=cMsg.value.trim();
+    const note=document.getElementById('formNote');
+    if(!n||!em||!m){note.textContent='Please complete the required fields.';note.classList.remove('ok');return;}
+    const body=encodeURIComponent(`Name: ${n}\nEmail: ${em}\nPhone: ${ph}\n\n${m}`);
+    window.location.href=`mailto:info@ksquare-architects.com?subject=${encodeURIComponent('New Project Enquiry — '+n)}&body=${body}`;
+    note.textContent='Thank you, '+n.split(' ')[0]+'. Your message is ready to send in your email app.';
+    note.classList.add('ok');
+    e.target.reset();
+  });
+</script>
+</body>
+</html>
